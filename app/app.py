@@ -4,6 +4,7 @@ from PySide6 import QtWidgets
 class Application(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Currency converter")
         
 # 2. Creation d'application globale
 app = QtWidgets.QApplication([])
