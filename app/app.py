@@ -22,6 +22,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QWidget,
 )
+import currency_converter
 # si besoin de command line
 import sys
 
@@ -31,6 +32,7 @@ import sys
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.c = currency_converter.CurrencyConverter()
         self.setWindowTitle("Currency Converter")  
         # self.setFixedSize(QSize(400, 300)) # fixer le size
     # 6. Les elements de la fenetres
@@ -50,7 +52,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
         # placer le widget au milieu de la fenetre.
         #self.setCentralWidget(button)
-        
+    def set_default_values(self):
+        pass
         
 # 2. Creation d'application globale avec l'option de CL args
 app = QApplication(sys.argv)
