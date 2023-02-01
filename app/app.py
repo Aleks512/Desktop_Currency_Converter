@@ -3,16 +3,20 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton
 # si besoin de command line
 import sys
 
-# 1 Creation de la classe custom répresentant la fenetre principale
+# 1 Creation de la classe custom ré*
+# presentant la fenetre principale
 #Subclass QMainWindow 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Currency Converter")  
     # 6. Les elements de la fenetres
+        button = QPushButton("Press Me!")
+        # placer le bouton au milieu de la fenetre.
+        self.setCentralWidget(button)
         
         
-# 2. Creation d'application globale avc l'option de CL args
+# 2. Creation d'application globale avec l'option de CL args
 app = QApplication(sys.argv)
 #si pas besoin de commande line args
 # app = QApplication([]) 
