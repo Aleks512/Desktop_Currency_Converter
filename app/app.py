@@ -33,27 +33,31 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.c = currency_converter.CurrencyConverter()
-        self.setWindowTitle("Currency Converter")  
+        self.setWindowTitle("Currency Converter")
         # self.setFixedSize(QSize(400, 300)) # fixer le size
     # 6. Les elements de la fenetres
         layout = QHBoxLayout()
-        cbb_from = QComboBox()
-        spn_montant = QSpinBox()
-        cbb_to = QComboBox()
-        spn_montantConverti = QSpinBox()
-        button_invert = QPushButton("Inverser Devises")
-        layout.addWidget(cbb_from)
-        layout.addWidget(spn_montant)
-        layout.addWidget(cbb_to)
-        layout.addWidget(spn_montantConverti)
-        layout.addWidget(button_invert)
+        self.cbb_from = QComboBox()
+        self.spn_montant = QSpinBox()
+        self.cbb_to = QComboBox()
+        self.spn_montantConverti = QSpinBox()
+        self.button_invert = QPushButton("Inverser Devises")
+        layout.addWidget(self.cbb_from)
+        layout.addWidget(self.spn_montant)
+        layout.addWidget(self.cbb_to)
+        layout.addWidget(self.spn_montantConverti)
+        layout.addWidget(self.button_invert)
         widget = QWidget()
         widget.setLayout(layout)
         self.setCentralWidget(widget)
+        self.set_default_values()
         # placer le widget au milieu de la fenetre.
         #self.setCentralWidget(button)
     def set_default_values(self):
-        pass
+        self.cbb_from.addItems(sorted(self.c.currencies)) # convert set to sorted list of currencies
+        self.cbb_to.addItems(sorted(self.c.currencies)) # convert set to sorted list of currencies
+        self.cbb_from.setCurrentText('EUR')
+        self.cbb_to.setCurrentText('EUR')
         
 # 2. Creation d'application globale avec l'option de CL args
 app = QApplication(sys.argv)
