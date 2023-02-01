@@ -58,6 +58,10 @@ class MainWindow(QMainWindow):
         self.cbb_to.addItems(sorted(self.c.currencies)) # convert set to sorted list of currencies
         self.cbb_from.setCurrentText('EUR')
         self.cbb_to.setCurrentText('EUR')
+        self.spn_montant.setRange(1, 1000000)
+        self.spn_montantConverti.setRange(1, 1000000)
+        self.spn_montant.setValue(100)
+        self.spn_montantConverti.setValue(100)
         
 # 2. Creation d'application globale avec l'option de CL args
 app = QApplication(sys.argv)
@@ -71,5 +75,5 @@ window = MainWindow()
 window.show()
 
 # 3. Excution de l'application 
-app.exec_()
+app.exec()
         
