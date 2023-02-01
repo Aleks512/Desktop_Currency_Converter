@@ -1,3 +1,5 @@
+import decimal
+
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import (
     QApplication,
@@ -32,7 +34,7 @@ import sys
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.c = currency_converter.CurrencyConverter()
+        self.curr = currency_converter.CurrencyConverter()
         self.setWindowTitle("Currency Converter")
         # self.setFixedSize(QSize(400, 300)) # fixer le size
     # 6. Les elements de la fenetres
@@ -56,8 +58,8 @@ class MainWindow(QMainWindow):
         # placer le widget au milieu de la fenetre.
         #self.setCentralWidget(button)
     def set_default_values(self):
-        self.cbb_from.addItems(sorted(self.c.currencies)) # convert set to sorted list of currencies
-        self.cbb_to.addItems(sorted(self.c.currencies)) # convert set to sorted list of currencies
+        self.cbb_from.addItems(sorted(self.curr.currencies)) # convert set to sorted list of currencies
+        self.cbb_to.addItems(sorted(self.curr.currencies)) # convert set to sorted list of currencies
         self.cbb_from.setCurrentText('EUR')
         self.cbb_to.setCurrentText('EUR')
         self.spn_montant.setRange(1, 1000000)
@@ -72,10 +74,20 @@ class MainWindow(QMainWindow):
         self.spn_montant.valueChanged.connect(self.compute) # en changant la valeur dans spinBox cela va connect to method compute
         self.button_invert.clicked.connect(self.inverser_devises)
     def compute(self):
-        print("compute")
+        montant = self.spn_montant.value() #int
+        devise_from = self.cbb_from.currentText()
+        devise_to = self.cbb_to.currentText()
+        resultat = self.curr.convert(montant, devise_from, devise_to)
+        print(resultat)
+        self.spn_montantConverti.setValue(resultat)
+
 
     def inverser_devises(self):
-        print("inverser")
+        devise_from = self.cbb_from.currentText()
+        devise_to = self.cbb_to.currentText()
+        self.cbb_from.setCurrentText(devise_to)
+        self.cbb_to.setCurrentText(devise_from)
+        self.compute()
         
 # 2. Creation d'application globale avec l'option de CL args
 app = QApplication(sys.argv)
