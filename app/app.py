@@ -51,6 +51,8 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
         self.set_default_values()
+        self.setup_connections()
+
         # placer le widget au milieu de la fenetre.
         #self.setCentralWidget(button)
     def set_default_values(self):
@@ -62,6 +64,18 @@ class MainWindow(QMainWindow):
         self.spn_montantConverti.setRange(1, 1000000)
         self.spn_montant.setValue(100)
         self.spn_montantConverti.setValue(100)
+
+    # creation des signaux (connecting widgets to methodes compute & inverser_devises)
+    def setup_connections(self):
+        self.cbb_from.activated.connect(self.compute)
+        self.cbb_to.activated.connect(self.compute)
+        self.spn_montant.valueChanged.connect(self.compute) # en changant la valeur dans spinBox cela va connect to method compute
+        self.button_invert.clicked.connect(self.inverser_devises)
+    def compute(self):
+        print("compute")
+
+    def inverser_devises(self):
+        print("inverser")
         
 # 2. Creation d'application globale avec l'option de CL args
 app = QApplication(sys.argv)
