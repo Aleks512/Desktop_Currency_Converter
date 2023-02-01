@@ -36,8 +36,8 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.curr = currency_converter.CurrencyConverter()
         self.setWindowTitle("Currency Converter")
-        # self.setFixedSize(QSize(400, 300)) # fixer le size
-    # 6. Les elements de la fenetres
+        self.setFixedSize(QSize(600, 300)) # fixer le size
+    # 6. Les elements de notre window
         layout = QHBoxLayout()
         self.cbb_from = QComboBox()
         self.spn_montant = QSpinBox()
@@ -54,9 +54,17 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
         self.set_default_values()
         self.setup_connections()
+        self.set_up_css()
 
         # placer le widget au milieu de la fenetre.
         #self.setCentralWidget(button)
+    def set_up_css(self):
+        self.setStyleSheet("""
+        background-color:rgb(30,30,30);
+        color: rgb(240,240,240);
+        border : none;
+        """)
+        self.button_invert.setStyleSheet("background-color: rgb(20,100,20)")
     def set_default_values(self):
         self.cbb_from.addItems(sorted(self.curr.currencies)) # convert set to sorted list of currencies
         self.cbb_to.addItems(sorted(self.curr.currencies)) # convert set to sorted list of currencies
@@ -79,6 +87,7 @@ class MainWindow(QMainWindow):
         devise_to = self.cbb_to.currentText()
         try:
             resultat = self.curr.convert(montant, devise_from, devise_to)
+            print(resultat)
         except currency_converter.currency_converter.RateNotFoundError:
             print("La conversion n'a pas fonctionné ")
         else:
