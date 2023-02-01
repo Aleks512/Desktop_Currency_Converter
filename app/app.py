@@ -3,24 +3,24 @@ import decimal
 from PySide6.QtCore import QSize, Qt
 from PySide6.QtWidgets import (
     QApplication,
-    QCheckBox,
+    # QCheckBox,
     QComboBox,
-    QDateEdit,
-    QDateTimeEdit,
-    QDial,
-    QDoubleSpinBox,
-    QFontComboBox,
-    QLabel,
-    QLCDNumber,
-    QLineEdit,
+    # QDateEdit,
+    # QDateTimeEdit,
+    # QDial,
+    # QDoubleSpinBox,
+    # QFontComboBox,
+    # QLabel,
+    # QLCDNumber,
+    # QLineEdit,
     QMainWindow,
-    QProgressBar,
+    # QProgressBar,
     QPushButton,
-    QRadioButton,
-    QSlider,
+    # QRadioButton,
+    # QSlider,
     QSpinBox,
-    QTimeEdit,
-    QVBoxLayout,
+    # QTimeEdit,
+    # QVBoxLayout,
     QHBoxLayout,
     QWidget,
 )
@@ -77,9 +77,12 @@ class MainWindow(QMainWindow):
         montant = self.spn_montant.value() #int
         devise_from = self.cbb_from.currentText()
         devise_to = self.cbb_to.currentText()
-        resultat = self.curr.convert(montant, devise_from, devise_to)
-        print(resultat)
-        self.spn_montantConverti.setValue(resultat)
+        try:
+            resultat = self.curr.convert(montant, devise_from, devise_to)
+        except currency_converter.currency_converter.RateNotFoundError:
+            print("La conversion n'a pas fonctionné ")
+        else:
+            self.spn_montantConverti.setValue(resultat)
 
 
     def inverser_devises(self):
